@@ -38,6 +38,15 @@ app.post("/login", async (req, res) => {
         expiresIn: "1h",
       }
     );
+
+    const refreshToken = jwt.sign(
+      { id: user._id, username: user.username },
+      SECRET_JWT_KEY,
+      {
+        expiresIn: "7d",
+      }
+    );
+
     res
       .cookie("access_token", token, {
         httpOnly: true,
